@@ -74,4 +74,5 @@ axs[1].set_ylabel('Anzahl der Personen', fontsize=12)
 
 # Layout verbessern
 fig.tight_layout()
+print("Success")
 plt.show()
