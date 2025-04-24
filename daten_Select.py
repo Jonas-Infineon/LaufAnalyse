@@ -118,10 +118,50 @@ def daten_analyse_freiburg(daten):
             dictionary_freiburg[schluessel_int] = daten_liste
     return dictionary_freiburg
 
+def daten_analyse_zuerich(daten):
+    dictionary_zuerich = {}
+    schluessel = ""
+    schluessel_int = 0
+    nation = ""
+    jahrgang = ""
+    geschlecht = ""
+    zielzeit = ""
+    count = 0
+    daten = daten.split("\n")                       # Daten nach Zeilen sortieren
+    for zeile in daten:                             # Auslesen der Daten
+        daten_liste = []
+        if zeile.strip():                       
+            zeile = zeile.split()
+            schluessel = zeile[0]                   # Platzierung als Schlüssel
+            schluessel = schluessel.replace(".", "")
+            try:
+                schluessel_int = int(schluessel)
+            except:
+                continue
+            for element in zeile:                   # Restliche Daten ermitteln
+                if len(element) == 4 and element.isdigit() and count != 1:
+                    jahrgang = element
+                elif len(element) == 3 and element.isalpha() and element.isupper():
+                    nation = element
+                elif element.count(":") == 2:
+                    zielzeit = element
+                elif (len(element) == 1 and element.isalpha and element.isupper()):                   
+                    geschlecht = element
+                count += 1                          # Hilsvariable zum Bestimmmen des Jahrgangs
+            daten_liste.append(zielzeit)            # Daten in ein Dictionary zur Weiterverarbeitung speichern
+            daten_liste.append(jahrgang)
+            daten_liste.append(geschlecht)
+            daten_liste.append(nation)
+            dictionary_zuerich[schluessel_int] = daten_liste
+            count = 0                               # Zurücksetzen der Hilfsvariable
+    return dictionary_zuerich
+
 def main_daten_select():
     daten_muenchen = einlesen_muenchen()
     dictionary_muenchen = daten_analyse_muenchen(daten_muenchen)
     daten_freiburg = einlesen_freiburg()
     dictionary_freiburg = daten_analyse_freiburg(daten_freiburg)
+    daten_zuerich = einlesen_zuerich()
+    dictionary_zuerich = daten_analyse_zuerich(daten_zuerich)
 
 main_daten_select()
