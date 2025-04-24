@@ -11,9 +11,6 @@ dateipfad_zuerich = "ergebnislisten/ergebnisliste_zuerich.pdf"
 daten_muenchen = "daten/daten_muenchen.txt"
 daten_freiburg = "daten/daten_freiburg.txt"
 daten_zuerich = "daten/daten_zuerich.txt"
-dictionary_muenchen = {}
-dictionary_freiburg = {}
-dictionary_zuerich = {}
 
 def einlesen_muenchen():
     inhalt = ""
@@ -91,6 +88,8 @@ def daten_analyse_muenchen(daten):
             daten_liste.append(geschlecht)
             daten_liste.append(nation)
             dictionary_muenchen[schluessel_int] = daten_liste
+            if schluessel_int == 999:
+                break
     return dictionary_muenchen
 
 def daten_analyse_freiburg(daten):
@@ -124,6 +123,8 @@ def daten_analyse_freiburg(daten):
             daten_liste.append(geschlecht)
             daten_liste.append("u")                 # Nationen als undefined setzen
             dictionary_freiburg[schluessel_int] = daten_liste
+            if schluessel_int == 999:
+                break
     return dictionary_freiburg
 
 def daten_analyse_zuerich(daten):
@@ -161,6 +162,8 @@ def daten_analyse_zuerich(daten):
             daten_liste.append(geschlecht)
             daten_liste.append(nation)
             dictionary_zuerich[schluessel_int] = daten_liste
+            if schluessel_int == 999:
+                break
             count = 0                               # Zurücksetzen der Hilfsvariable
     return dictionary_zuerich
 
@@ -179,9 +182,9 @@ def concept_zuerich():
     dictionary_zuerich = daten_analyse_zuerich(daten_zuerich)
     return dictionary_zuerich
 
-def daten_speichern(dictionary_muenchen, dictionary_freiburg, dictionary_zuerich):
+def daten_speichern(dictionary_muenchen, dictionary_freiburg, dictionary_zuerich):                          # Daten in entsprechende Datei speichern
     with open(daten_muenchen, "w") as file:
-        for schluessel, element in dictionary_muenchen.items():
+        for schluessel, element in dictionary_muenchen.items():                                             # Dictionary mit Keys und Elementen entsprechend durch iterieren
             file.write(f"{str(schluessel)}: {str(element)}\n")
         file.close()
     with open(daten_freiburg, "w") as file:
@@ -195,6 +198,9 @@ def daten_speichern(dictionary_muenchen, dictionary_freiburg, dictionary_zuerich
 
 def main_daten_select():
     results_dictionary = {}                         # Zwischenspeicher für Rückgabewerte der Thread-Funktionen
+    dictionary_muenchen = {}
+    dictionary_freiburg = {}
+    dictionary_zuerich = {}
     def speichern_muenchen():
         results_dictionary["Muenchen"] = concept_muenchen()
     def speichern_freiburg():
@@ -207,7 +213,7 @@ def main_daten_select():
     thread_muenchen.start()
     thread_freiburg.start()
     thread_zuerich.start()
-    thread_muenchen.join()                                              # Auf beenden der jeweiligen Threads warten
+    thread_muenchen.join()                                                                                        # Auf beenden der jeweiligen Threads warten
     thread_freiburg.join()
     thread_zuerich.join()
     dictionary_muenchen = results_dictionary["Muenchen"]
