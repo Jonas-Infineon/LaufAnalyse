@@ -2,24 +2,40 @@ import math as m
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib import ticker
+import ast
 
-import Dictionary as dc
+inhalt = ""
+dic = {}
+
+with open("daten/daten_muenchen.txt", "r") as file:
+    for zeile in file:
+        zeile = zeile.strip()
+        if zeile:
+            try:
+                key, var = zeile.split(":", 1)
+                key = key.strip()
+                var = ast.literal_eval(var.strip())
+
+                dic[int(key)] = var
+            except ValueError as e:
+                print(f"Fehler beim Verarbeiten der Zeile: {zeile} -> {e}")
+print(dic)
 
 time_ls = []
 age_ls = []
 
-for i in range(1, len(dc.dic) + 1):
+for i in range(1, len(dic) + 1):
     try:
-        now = dc.dic[i][0]
+        now = dic[i][0]
         h, m, s = map(int, now.split(":"))
         total_time = h * 3600 + m * 60 + s
         time_ls.append(total_time)
 
-        age = 2025 - int(dc.dic[i][1])
+        age = 2025 - int(dic[i][1])
         age_ls.append(age)
     except Exception as e:
         print(f"Error processing entry {i}: {e}")
-        print(f"Entry content: {dc.dic[i]}")
+        print(f"Entry content: {dic[i]}")
 
 age_count = {}
 age_sum_time = {}
