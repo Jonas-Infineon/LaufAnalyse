@@ -66,7 +66,6 @@ def daten_analyse_muenchen(daten):
         if zeile.strip():                     
             zeile = zeile.split()
             schluessel = zeile[0]                   # Platzierung als Schlüssel
-            
             if len(schluessel) > 5:
                 schluessel = schluessel[:4]         # Ab Startnummer 1.000 Fehlt ein Leerzeichen, deswegen wird die Entfernung hier manuell durchgeführt
             schluessel = schluessel.replace(".", "")
@@ -146,6 +145,8 @@ def daten_analyse_zuerich(daten):
         if zeile.strip():                       
             zeile = zeile.split()
             schluessel = zeile[0]                   # Platzierung als Schlüssel
+            if len(schluessel) > 5:
+                schluessel = schluessel[:4]         # Ab Startnummer 1.000 Fehlt ein Leerzeichen, deswegen wird die Entfernung hier manuell durchgeführt
             schluessel = schluessel.replace(".", "")
             try:
                 schluessel_int = int(schluessel)
@@ -166,8 +167,6 @@ def daten_analyse_zuerich(daten):
             daten_liste.append(geschlecht)
             daten_liste.append(nation)
             dictionary_zuerich[schluessel_int] = daten_liste
-            if schluessel_int == 999:
-                break
             count = 0                               # Zurücksetzen der Hilfsvariable
     return dictionary_zuerich
 
