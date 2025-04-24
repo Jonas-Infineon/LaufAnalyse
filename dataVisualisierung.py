@@ -1,7 +1,7 @@
 import math as m
-import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib import ticker
+import matplotlib.pyplot as plt
+from matplotlib import ticker as ticker
 import ast
 
 inhalt = ""
