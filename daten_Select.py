@@ -63,9 +63,12 @@ def daten_analyse_muenchen(daten):
     daten = daten.split("\n")                       # Daten nach Zeilen sortieren
     for zeile in daten:                             # Auslesen der Daten
         daten_liste = []
-        if zeile.strip():                       
+        if zeile.strip():                     
             zeile = zeile.split()
             schluessel = zeile[0]                   # Platzierung als Schlüssel
+            
+            if len(schluessel) > 5:
+                schluessel = schluessel[:4]         # Ab Startnummer 1.000 Fehlt ein Leerzeichen, deswegen wird die Entfernung hier manuell durchgeführt
             schluessel = schluessel.replace(".", "")
             try:
                 schluessel_int = int(schluessel)
@@ -76,9 +79,12 @@ def daten_analyse_muenchen(daten):
                     jahrgang = element
                 elif len(element) == 3 and element.isalpha() and element.isupper():
                     nation = element
-                elif element.count(":") == 2 and element.count("(") == 0:
+                elif element.count(":") == 2 and element.count("(") == 0 and element[0].isdigit() or element.count(":") == 4:
+                    if element.count("+") == 1:
+                        position = element.find("+")
+                        element = element[:position]                                # Ab dem Plus-Zeichen, sämtliche Strings entfernen
                     zielzeit = element
-                elif (len(element) == 1 and element.isalpha and element.isupper()) or (len(element) == 3 and element[0].isalpha() and element[1].isdigit() and element[2].isdigit()):                   
+                elif (len(element) == 1 and element.isalpha() and element.isupper()) or (len(element) == 3 and element[0].isalpha() and element[1].isdigit() and element[2].isdigit()):                   
                     if len(element) == 3:           # Filtert das Geschlecht, je nach mit oder ohne Angabe der Altersklasse
                         geschlecht = element[0]
                     else:
@@ -88,8 +94,6 @@ def daten_analyse_muenchen(daten):
             daten_liste.append(geschlecht)
             daten_liste.append(nation)
             dictionary_muenchen[schluessel_int] = daten_liste
-            if schluessel_int == 999:
-                break
     return dictionary_muenchen
 
 def daten_analyse_freiburg(daten):
