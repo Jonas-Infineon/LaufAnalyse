@@ -4,7 +4,7 @@ import pdfplumber as pdf
 # Definition der Dateipfade
 dateipfad_muenchen = "ergebnislisten/ergebnisliste_muenchen.pdf"
 dateipfad_koeln = "ergebnislisten/ergebnisliste_koeln.pdf"
-dateipfad_freiburg = "ergebnislisten/ergenisliste_freiburg.pdf"
+dateipfad_freiburg = "ergebnislisten/ergebnisliste_freiburg.pdf"
 dateipfad_zuerich = "ergebnislisten/ergebnisliste_zuerich.pdf"
 
 def einlesen_muenchen():
@@ -74,7 +74,7 @@ def daten_analyse_muenchen(daten):
                 elif element.count(":") == 2 and element.count("(") == 0:
                     zielzeit = element
                 elif (len(element) == 1 and element.isalpha and element.isupper()) or (len(element) == 3 and element[0].isalpha() and element[1].isdigit() and element[2].isdigit()):                   
-                    if len(element) == 3:
+                    if len(element) == 3:           # Filtert das Geschlecht, je nach mit oder ohne Angabe der Altersklasse
                         geschlecht = element[0]
                     else:
                         geschlecht = element
@@ -85,9 +85,42 @@ def daten_analyse_muenchen(daten):
             dictionary_muenchen[schluessel_int] = daten_liste
     return dictionary_muenchen
 
+def daten_analyse_freiburg(daten):
+    dictionary_freiburg = {}
+    schluessel = ""
+    schluessel_int = 0
+    nation = ""
+    jahrgang = ""
+    geschlecht = ""
+    zielzeit = ""
+    daten = daten.split("\n")                       # Daten nach Zeilen sortieren
+    for zeile in daten:                             # Auslesen der Daten
+        daten_liste = []
+        if zeile.strip():                       
+            zeile = zeile.split()
+            schluessel = zeile[0]                   # Platzierung als Schlüssel
+            schluessel = schluessel.replace(".", "")
+            try:
+                schluessel_int = int(schluessel)
+            except:
+                continue
+            for element in zeile:                   # Restliche Daten ermitteln
+                if len(element) == 4 and element.isdigit():
+                    jahrgang = element
+                elif element.count(":") == 2:
+                    zielzeit = element
+                elif (len(element) == 1 and element.isalpha and element.islower()):                   
+                        geschlecht = element
+            daten_liste.append(zielzeit)            # Daten in ein Dictionary zur Weiterverarbeitung speichern
+            daten_liste.append(jahrgang)
+            daten_liste.append(geschlecht)
+            dictionary_freiburg[schluessel_int] = daten_liste
+    return dictionary_freiburg
+
 def main_daten_select():
-    daten = einlesen_muenchen()
-    dictionary = daten_analyse_muenchen(daten)
-    print(dictionary)
+    daten_muenchen = einlesen_muenchen()
+    dictionary_muenchen = daten_analyse_muenchen(daten_muenchen)
+    daten_freiburg = einlesen_freiburg()
+    dictionary_freiburg = daten_analyse_freiburg(daten_freiburg)
 
 main_daten_select()
