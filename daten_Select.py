@@ -11,9 +11,8 @@ def einlesen_muenchen():
     inhalt = ""
     try:
         with pdf.open(dateipfad_muenchen) as file:
-           """for page in file.pages:
-                inhalt += page.extract_text()"""
-           inhalt = file.pages[0].extract_text()
+           for page in file.pages:
+                inhalt += page.extract_text()
     except:
         print(f"Der Dateipfad {dateipfad_muenchen} ist nicht bekannt.\n Bitte diesen dementsprechend abaendern")
     return inhalt
