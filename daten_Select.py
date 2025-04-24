@@ -1,4 +1,6 @@
 import pdfplumber as pdf
+import threading as thread
+import time as time
 
 # Hier werden die einzelnen Daten eingelesen und entsprechend analysiert
 # Definition der Dateipfade
@@ -6,6 +8,9 @@ dateipfad_muenchen = "ergebnislisten/ergebnisliste_muenchen.pdf"
 dateipfad_koeln = "ergebnislisten/ergebnisliste_koeln.pdf"
 dateipfad_freiburg = "ergebnislisten/ergebnisliste_freiburg.pdf"
 dateipfad_zuerich = "ergebnislisten/ergebnisliste_zuerich.pdf"
+dictionary_muenchen = {}
+dictionary_freiburg = {}
+dictionary_zuerich = {}
 
 def einlesen_muenchen():
     inhalt = ""
@@ -156,12 +161,40 @@ def daten_analyse_zuerich(daten):
             count = 0                               # Zurücksetzen der Hilfsvariable
     return dictionary_zuerich
 
-def main_daten_select():
+def concept_muenchen():
     daten_muenchen = einlesen_muenchen()
     dictionary_muenchen = daten_analyse_muenchen(daten_muenchen)
+    return dictionary_muenchen
+
+def concept_freiburg():
     daten_freiburg = einlesen_freiburg()
     dictionary_freiburg = daten_analyse_freiburg(daten_freiburg)
+    return dictionary_freiburg
+
+def concept_zuerich():
     daten_zuerich = einlesen_zuerich()
     dictionary_zuerich = daten_analyse_zuerich(daten_zuerich)
+    return dictionary_zuerich
+
+def main_daten_select():
+    results_dictionary = {}                         # Zwischenspeicher für Rückgabewerte der Thread-Funktionen
+    def speichern_muenchen():
+        results_dictionary["Muenchen"] = concept_muenchen()
+    def speichern_freiburg():
+        results_dictionary["Freiburg"] = concept_freiburg()
+    def speichern_zuerich():
+        results_dictionary["Zuerich"] = concept_zuerich()
+    thread_muenchen = thread.Thread(target=speichern_muenchen)          # Threads anlegen und starten
+    thread_freiburg = thread.Thread(target=speichern_freiburg)
+    thread_zuerich = thread.Thread(target=speichern_zuerich)
+    thread_muenchen.start()
+    thread_freiburg.start()
+    thread_zuerich.start()
+    thread_muenchen.join()                                              # Auf beenden der jeweiligen Threads warten
+    thread_freiburg.join()
+    thread_zuerich.join()
+    dictionary_muenchen = results_dictionary["Muenchen"]
+    dictionary_freiburg = results_dictionary["Freiburg"]
+    dictionary_zuerich = results_dictionary["Zuerich"]
 
 main_daten_select()
