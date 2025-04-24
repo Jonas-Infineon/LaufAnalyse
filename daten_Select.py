@@ -8,6 +8,9 @@ dateipfad_muenchen = "ergebnislisten/ergebnisliste_muenchen.pdf"
 dateipfad_koeln = "ergebnislisten/ergebnisliste_koeln.pdf"
 dateipfad_freiburg = "ergebnislisten/ergebnisliste_freiburg.pdf"
 dateipfad_zuerich = "ergebnislisten/ergebnisliste_zuerich.pdf"
+daten_muenchen = "daten/daten_muenchen.txt"
+daten_freiburg = "daten/daten_freiburg.txt"
+daten_zuerich = "daten/daten_zuerich.txt"
 dictionary_muenchen = {}
 dictionary_freiburg = {}
 dictionary_zuerich = {}
@@ -176,6 +179,20 @@ def concept_zuerich():
     dictionary_zuerich = daten_analyse_zuerich(daten_zuerich)
     return dictionary_zuerich
 
+def daten_speichern(dictionary_muenchen, dictionary_freiburg, dictionary_zuerich):
+    with open(daten_muenchen, "w") as file:
+        for schluessel, element in dictionary_muenchen.items():
+            file.write(f"{str(schluessel)}: {str(element)}\n")
+        file.close()
+    with open(daten_freiburg, "w") as file:
+        for schluessel, element in dictionary_freiburg.items():
+            file.write(f"{str(schluessel)}: {str(element)}\n")
+        file.close()
+    with open(daten_zuerich, "w") as file:
+        for schluessel, element in dictionary_zuerich.items():
+            file.write(f"{str(schluessel)}: {str(element)}\n")
+        file.close()
+
 def main_daten_select():
     results_dictionary = {}                         # Zwischenspeicher für Rückgabewerte der Thread-Funktionen
     def speichern_muenchen():
@@ -196,5 +213,6 @@ def main_daten_select():
     dictionary_muenchen = results_dictionary["Muenchen"]
     dictionary_freiburg = results_dictionary["Freiburg"]
     dictionary_zuerich = results_dictionary["Zuerich"]
+    daten_speichern(dictionary_muenchen, dictionary_freiburg, dictionary_zuerich)                                 # Speichern von Daten in entsprechende Dateien
 
 main_daten_select()
