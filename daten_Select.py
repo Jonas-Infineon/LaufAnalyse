@@ -139,6 +139,7 @@ def daten_analyse_zuerich(daten):
     geschlecht = ""
     zielzeit = ""
     count = 0
+    key_zaehler = 0
     daten = daten.split("\n")                       # Daten nach Zeilen sortieren
     for zeile in daten:                             # Auslesen der Daten
         daten_liste = []
@@ -149,7 +150,8 @@ def daten_analyse_zuerich(daten):
                 schluessel = schluessel[:4]         # Ab Startnummer 1.000 Fehlt ein Leerzeichen, deswegen wird die Entfernung hier manuell durchgeführt
             schluessel = schluessel.replace(".", "")
             try:
-                schluessel_int = int(schluessel)
+                schluessel_int = int(schluessel)    # Aufgrund der Sortierung nach Altersklasse werden hierdurch die DNF- sowie DNS-Teilnehmer gefiltert und anschließend ein entsprechender Key für das Dictionary übergeben
+                key_zaehler += 1
             except:
                 continue
             for element in zeile:                   # Restliche Daten ermitteln
@@ -166,10 +168,8 @@ def daten_analyse_zuerich(daten):
             daten_liste.append(jahrgang)
             daten_liste.append(geschlecht)
             daten_liste.append(nation)
-            dictionary_zuerich[schluessel_int] = daten_liste
+            dictionary_zuerich[key_zaehler] = daten_liste
             count = 0                               # Zurücksetzen der Hilfsvariable
-            if schluessel_int == 1149:
-                break
     return dictionary_zuerich
 
 def concept_muenchen():
