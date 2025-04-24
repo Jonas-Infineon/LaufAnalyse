@@ -1,1 +1,1 @@
-# Hier werden die Daten eingelesen und entsprechend analysiert
+# Hier werden die einzelnen Daten eingelesen und entsprechend analysiert
