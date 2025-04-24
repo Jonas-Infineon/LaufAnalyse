@@ -168,6 +168,8 @@ def daten_analyse_zuerich(daten):
             daten_liste.append(nation)
             dictionary_zuerich[schluessel_int] = daten_liste
             count = 0                               # Zurücksetzen der Hilfsvariable
+            if schluessel_int == 1149:
+                break
     return dictionary_zuerich
 
 def concept_muenchen():
