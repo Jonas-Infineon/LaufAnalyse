@@ -11,8 +11,9 @@ def einlesen_muenchen():
     inhalt = ""
     try:
         with pdf.open(dateipfad_muenchen) as file:
-           for page in file.pages:
-                inhalt += page.extract_text()
+           """for page in file.pages:
+                inhalt += page.extract_text()"""
+           inhalt = file.pages[0].extract_text()
     except:
         print(f"Der Dateipfad {dateipfad_muenchen} ist nicht bekannt.\n Bitte diesen dementsprechend abaendern")
     return inhalt
@@ -66,11 +67,19 @@ def daten_analyse_muenchen(daten):
                 schluessel_int = int(schluessel)
             except:
                 continue
-            nation = zeile[3]                       # Restliche Daten ermitteln
-            jahrgang = zeile[5]
-            geschlecht = zeile[6]
-            zielzeit = zeile[9]
-            daten_liste.append(zielzeit)
+            for element in zeile:                   # Restliche Daten ermitteln
+                if len(element) == 4 and element.isdigit():
+                    jahrgang = element
+                elif len(element) == 3 and element.isalpha() and element.isupper():
+                    nation = element
+                elif element.count(":") == 2 and element.count("(") == 0:
+                    zielzeit = element
+                elif (len(element) == 1 and element.isalpha and element.isupper()) or (len(element) == 3 and element[0].isalpha() and element[1].isdigit() and element[2].isdigit()):                   
+                    if len(element) == 3:
+                        geschlecht = element[0]
+                    else:
+                        geschlecht = element
+            daten_liste.append(zielzeit)            # Daten in ein Dictionary zur Weiterverarbeitung speichern
             daten_liste.append(jahrgang)
             daten_liste.append(geschlecht)
             daten_liste.append(nation)
