@@ -114,6 +114,7 @@ def daten_analyse_freiburg(daten):
             daten_liste.append(zielzeit)            # Daten in ein Dictionary zur Weiterverarbeitung speichern
             daten_liste.append(jahrgang)
             daten_liste.append(geschlecht)
+            daten_liste.append("u")                 # Nationen als undefined setzen
             dictionary_freiburg[schluessel_int] = daten_liste
     return dictionary_freiburg
 
