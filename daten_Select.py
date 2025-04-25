@@ -117,6 +117,13 @@ def daten_analyse_freiburg(daten):
                     zielzeit = element
                 elif (len(element) == 1 and element.isalpha and element.islower()):                   
                         geschlecht = element
+            try:                                    # Entfernen von fälschlicherweise analysierten Daten
+                jahrgang_int = int(jahrgang)
+                if jahrgang_int > 2010:
+                    key_zaehler -= 1                # key_zaehler für nicht verwendete Daten im Dictionary zurücksetzen
+                    continue
+            except:
+                continue
             daten_liste.append(zielzeit)            # Daten in ein Dictionary zur Weiterverarbeitung speichern
             daten_liste.append(jahrgang)
             daten_liste.append(geschlecht)
@@ -161,7 +168,7 @@ def daten_analyse_zuerich(daten):
             try:                                    # Entfernen von fälschlicherweise analysierten Daten
                 jahrgang_int = int(jahrgang)
                 if jahrgang_int > 2010:
-                    key_zaehler -= 1
+                    key_zaehler -= 1                # key_zaehler für nicht verwendete Daten im Dictionary zurücksetzen
                     continue
             except:
                 continue
