@@ -26,16 +26,6 @@ def einlesen_muenchen():
         print(f"Der Dateipfad {dateipfad_muenchen} ist nicht bekannt.\n Bitte diesen dementsprechend abaendern")
     return inhalt
 
-def einlesen_koeln():
-    inhalt = ""
-    try:
-        with pdf.open(dateipfad_koeln) as file:
-            for page in file.pages:
-                inhalt += page.extract_text()
-    except:
-        print(f"Der Dateipfad {dateipfad_koeln} ist nicht bekannt.\n Bitte diesen dementsprechend abaendern")
-    return inhalt
-
 def einlesen_freiburg():
     inhalt = ""
     try:
