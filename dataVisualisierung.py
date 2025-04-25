@@ -31,6 +31,7 @@ for i in range(1, len(dic) + 1):
         total_time = h * 3600 + m * 60 + s
         time_ls.append(total_time)
 
+        print(f"Birth year: {dic[i][1]}, calculated age: {2025 - int(dic[i][1])}")
         age = 2025 - int(dic[i][1])
         age_ls.append(age)
     except Exception as e:
