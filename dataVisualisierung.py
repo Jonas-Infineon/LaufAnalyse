@@ -20,7 +20,6 @@ def visu(pfad):
                     dic[int(key)] = var
                 except ValueError as e:
                     print(f"Fehler beim Verarbeiten der Zeile: {zeile} -> {e}")
-    print(dic)
 
     time_ls = []
     age_ls = []
@@ -31,8 +30,6 @@ def visu(pfad):
             h, m, s = map(int, now.split(":"))
             total_time = h * 3600 + m * 60 + s
             time_ls.append(total_time)
-
-            print(f"Birth year: {dic[i][1]}, calculated age: {2025 - int(dic[i][1])}")
             age = 2025 - int(dic[i][1])
             age_ls.append(age)
         except Exception as e:
