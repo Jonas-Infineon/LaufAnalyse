@@ -1,6 +1,10 @@
 import pdfplumber as pdf
 import threading as thread
 import time as time
+import logging
+
+# Nur echte Fehler anstelle von Warnungen anzeigen
+logging.getLogger("pdfminer").setLevel(logging.ERROR)
 
 # Hier werden die einzelnen Daten eingelesen und entsprechend analysiert
 # Definition der Dateipfade
@@ -103,6 +107,7 @@ def daten_analyse_freiburg(daten):
     jahrgang = ""
     geschlecht = ""
     zielzeit = ""
+    key_zaehler = 0
     daten = daten.split("\n")                       # Daten nach Zeilen sortieren
     for zeile in daten:                             # Auslesen der Daten
         daten_liste = []
@@ -112,6 +117,7 @@ def daten_analyse_freiburg(daten):
             schluessel = schluessel.replace(".", "")
             try:
                 schluessel_int = int(schluessel)
+                key_zaehler += 1
             except:
                 continue
             for element in zeile:                   # Restliche Daten ermitteln
@@ -125,9 +131,7 @@ def daten_analyse_freiburg(daten):
             daten_liste.append(jahrgang)
             daten_liste.append(geschlecht)
             daten_liste.append("u")                 # Nationen als undefined setzen
-            dictionary_freiburg[schluessel_int] = daten_liste
-            if schluessel_int == 999:
-                break
+            dictionary_freiburg[key_zaehler] = daten_liste
     return dictionary_freiburg
 
 def daten_analyse_zuerich(daten):
