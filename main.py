@@ -1,6 +1,5 @@
 import daten_Select as data_collect
 import dataVisualisierung as data_visualize
-import threading as thread
 
 def main():
     check = 1
