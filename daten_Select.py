@@ -158,6 +158,13 @@ def daten_analyse_zuerich(daten):
                 elif (len(element) == 1 and element.isalpha and element.isupper()):                   
                     geschlecht = element
                 count += 1                          # Hilsvariable zum Bestimmmen des Jahrgangs
+            try:                                    # Entfernen von fälschlicherweise analysierten Daten
+                jahrgang_int = int(jahrgang)
+                if jahrgang_int > 2010:
+                    key_zaehler -= 1
+                    continue
+            except:
+                continue
             daten_liste.append(zielzeit)            # Daten in ein Dictionary zur Weiterverarbeitung speichern
             daten_liste.append(jahrgang)
             daten_liste.append(geschlecht)
