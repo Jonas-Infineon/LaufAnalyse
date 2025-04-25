@@ -9,7 +9,6 @@ logging.getLogger("pdfminer").setLevel(logging.ERROR)
 # Hier werden die einzelnen Daten eingelesen und entsprechend analysiert
 # Definition der Dateipfade
 dateipfad_muenchen = "ergebnislisten/ergebnisliste_muenchen.pdf"
-dateipfad_koeln = "ergebnislisten/ergebnisliste_koeln.pdf"
 dateipfad_freiburg = "ergebnislisten/ergebnisliste_freiburg.pdf"
 dateipfad_zuerich = "ergebnislisten/ergebnisliste_zuerich.pdf"
 daten_muenchen = "daten/daten_muenchen.txt"
