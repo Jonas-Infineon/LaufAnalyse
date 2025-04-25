@@ -19,13 +19,13 @@ def main():
     visualize_zuerich()
 
 def visualize_muenchen():
-    data_visualize.visu("daten/daten_muenchen.txt")
+    data_visualize.visu("daten/daten_muenchen.txt", "Muenchen")
 
 def visualize_freiburg():
-    data_visualize.visu("daten/daten_freiburg.txt")
+    data_visualize.visu("daten/daten_freiburg.txt", "Freiburg")
 
 def visualize_zuerich():
-    data_visualize.visu("daten/daten_zuerich.txt")
+    data_visualize.visu("daten/daten_zuerich.txt", "Zuerich")
 
 
 main()

@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from matplotlib import ticker as ticker
 import ast
 
-def visu(pfad):
+def visu(pfad, stadtname):
     inhalt = ""
     dic = {}
 
@@ -76,14 +76,14 @@ def visu(pfad):
 
     # Plot 1: Durchschnittliche Zeit pro Alter
     axs[0].plot(ages, avg_time_values, 'o-', linewidth=2, color='blue')
-    axs[0].set_title('Durchschnittliche Zeit pro Alter', fontsize=14)
+    axs[0].set_title(f'Marathon {stadtname}: Durchschnittliche Zeit pro Alter', fontsize=14)
     axs[0].set_xlabel('Alter', fontsize=12)
     axs[0].set_ylabel('Durchschnittliche Zeit (hh:mm:ss)', fontsize=12)
     axs[0].yaxis.set_major_formatter(ticker.FuncFormatter(time_formatter))
 
     # Plot 2: Anzahl der Personen pro Alter
     axs[1].bar(age_keys, age_values, color='orange')
-    axs[1].set_title('Anzahl der Personen pro Alter', fontsize=14)
+    axs[1].set_title(f'Marathon {stadtname}: Anzahl der Personen pro Alter', fontsize=14)
     axs[1].set_xlabel('Alter', fontsize=12)
     axs[1].set_ylabel('Anzahl der Personen', fontsize=12)
 
