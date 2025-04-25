@@ -15,7 +15,7 @@ daten_muenchen = "daten/daten_muenchen.txt"
 daten_freiburg = "daten/daten_freiburg.txt"
 daten_zuerich = "daten/daten_zuerich.txt"
 alter_min = 2010
-alter_max = 1925
+alter_max = 1930
 
 def einlesen_muenchen():
     inhalt = ""
