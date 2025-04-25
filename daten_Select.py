@@ -234,5 +234,3 @@ def main_daten_select():
     dictionary_freiburg = results_dictionary["Freiburg"]
     dictionary_zuerich = results_dictionary["Zuerich"]
     daten_speichern(dictionary_muenchen, dictionary_freiburg, dictionary_zuerich)                                 # Speichern von Daten in entsprechende Dateien
-
-main_daten_select()
