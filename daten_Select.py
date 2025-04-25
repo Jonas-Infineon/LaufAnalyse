@@ -115,11 +115,11 @@ def daten_analyse_freiburg(daten):
                     jahrgang = element
                 elif element.count(":") == 2:
                     zielzeit = element
-                elif (len(element) == 1 and element.isalpha and element.islower()):                   
+                elif (len(element) == 1 and element.isalpha() and element.islower()):                   
                         geschlecht = element
             try:                                    # Entfernen von fälschlicherweise analysierten Daten
                 jahrgang_int = int(jahrgang)
-                if jahrgang_int > 2010:
+                if jahrgang_int > 2010 or jahrgang_int < 1950:
                     key_zaehler -= 1                # key_zaehler für nicht verwendete Daten im Dictionary zurücksetzen
                     continue
             except:
@@ -162,12 +162,12 @@ def daten_analyse_zuerich(daten):
                     nation = element
                 elif element.count(":") == 2:
                     zielzeit = element
-                elif (len(element) == 1 and element.isalpha and element.isupper()):                   
+                elif (len(element) == 1 and element.isalpha() and element.isupper()):                   
                     geschlecht = element
                 count += 1                          # Hilsvariable zum Bestimmmen des Jahrgangs
             try:                                    # Entfernen von fälschlicherweise analysierten Daten
                 jahrgang_int = int(jahrgang)
-                if jahrgang_int > 2010:
+                if jahrgang_int > 2010 or jahrgang_int < 1950:
                     key_zaehler -= 1                # key_zaehler für nicht verwendete Daten im Dictionary zurücksetzen
                     continue
             except:
