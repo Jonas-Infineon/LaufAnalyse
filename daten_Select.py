@@ -14,6 +14,8 @@ dateipfad_zuerich = "ergebnislisten/ergebnisliste_zuerich.pdf"
 daten_muenchen = "daten/daten_muenchen.txt"
 daten_freiburg = "daten/daten_freiburg.txt"
 daten_zuerich = "daten/daten_zuerich.txt"
+alter_min = 2010
+alter_max = 1925
 
 def einlesen_muenchen():
     inhalt = ""
@@ -118,7 +120,7 @@ def daten_analyse_freiburg(daten):
                         geschlecht = element
             try:                                    # Entfernen von fälschlicherweise analysierten Daten
                 jahrgang_int = int(jahrgang)
-                if jahrgang_int > 2010 or jahrgang_int < 1950:
+                if jahrgang_int > alter_min or jahrgang_int < alter_max:
                     key_zaehler -= 1                # key_zaehler für nicht verwendete Daten im Dictionary zurücksetzen
                     continue
             except:
@@ -166,7 +168,7 @@ def daten_analyse_zuerich(daten):
                 count += 1                          # Hilsvariable zum Bestimmmen des Jahrgangs
             try:                                    # Entfernen von fälschlicherweise analysierten Daten
                 jahrgang_int = int(jahrgang)
-                if jahrgang_int > 2010 or jahrgang_int < 1950:
+                if jahrgang_int > alter_min or jahrgang_int < alter_max:
                     key_zaehler -= 1                # key_zaehler für nicht verwendete Daten im Dictionary zurücksetzen
                     continue
             except:
